@@ -1,0 +1,216 @@
+/* Base theme variables */
+:root {
+  --bg: #0f1115;
+  --card: #151822;
+  --text: #e9edf3;
+  --muted: #9aa4b2;
+  --primary: #2f6df6;
+  --accent: #3ac77a;
+  --border: #222838;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme="light"] {
+  --bg: #f7f8fc;
+  --card: #ffffff;
+  --text: #111521;
+  --muted: #5b6777;
+  --primary: #2f6df6;
+  --accent: #1fb36b;
+  --border: #e8ebf2;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand__title {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.brand__subtitle {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+}
+
+select {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-weight: 600;
+}
+
+.btn {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Now section */
+.now {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.now__time {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.clock {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+}
+.now__status {
+  color: var(--muted);
+}
+
+/* Times grid */
+.times {
+  margin-top: 22px;
+}
+.times h2 {
+  margin: 0 0 12px;
+}
+.times__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.pair {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+.pair__num { font-weight: 700; }
+.pair__time { color: var(--primary); font-weight: 700; }
+.pair__break { color: var(--muted); font-size: 0.9rem; }
+
+/* Week schedule */
+.week {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.day {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+.day__header {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.day__title { font-weight: 700; }
+.day__today { color: var(--accent); font-weight: 700; font-size: 0.9rem; }
+
+.day__list { padding: 10px 12px; display: grid; gap: 8px; }
+
+.lesson {
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+}
+.lesson__time { color: var(--primary); font-weight: 700; }
+.lesson__name { font-weight: 600; }
+.lesson__meta { color: var(--muted); font-size: 0.92rem; }
+
+.lesson--alt {
+  border-width: 2px;
+  border-style: dashed;
+  border-color: var(--accent);
+}
+
+.lesson:hover { border-color: var(--accent); }
+
+.empty { color: var(--muted); font-style: italic; }
+
+/* Footer */
+.app-footer {
+  margin: 28px auto 40px;
+  max-width: 1100px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .times__grid { grid-template-columns: repeat(2, 1fr); }
+  .week { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 680px) {
+  .app-header { flex-wrap: wrap; }
+  .controls { width: 100%; justify-content: space-between; }
+  .times__grid { grid-template-columns: 1fr; }
+  .week { grid-template-columns: 1fr; }
+  .app-footer { flex-direction: column; gap: 6px; }
+}

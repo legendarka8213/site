@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ИСП252П — Расписание на неделю</title>
+  <meta name="description" content="Расписание пар группы ИСП252П на неделю с чередованием недель, временем пар и перерывами." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand__title">ИСП252П</div>
+      <div class="brand__subtitle">Расписание на неделю</div>
+    </div>
+    <div class="controls">
+      <button id="weekButton" class="btn" aria-label="Переключить неделю"></button>
+      <button id="themeToggle" class="btn" aria-label="Переключить тему"></button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="now">
+      <div class="now__time">
+        <span id="nowDate"></span>
+        <span id="nowClock" class="clock"></span>
+      </div>
+      <div class="now__status" id="nowStatus">Сегодня нет занятий</div>
+    </section>
+
+    <section class="times">
+      <h2>Расписание пар</h2>
+      <div class="times__grid">
+        <div class="pair">
+          <div class="pair__num">1-я пара</div>
+          <div class="pair__time">8:15 – 9:45</div>
+          <div class="pair__break">перерыв 15 мин.</div>
+        </div>
+        <div class="pair">
+          <div class="pair__num">2-я пара</div>
+          <div class="pair__time">10:00 – 11:30</div>
+          <div class="pair__break">перерыв 15 мин.</div>
+        </div>
+        <div class="pair">
+          <div class="pair__num">3-я пара</div>
+          <div class="pair__time">11:45 – 13:15</div>
+          <div class="pair__break">перерыв 30 мин.</div>
+        </div>
+        <div class="pair">
+          <div class="pair__num">4-я пара</div>
+          <div class="pair__time">13:45 – 15:15</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="week" id="week"></section>
+  </main>
+
+  <footer class="app-footer">
+    <div>Группа: ИСП252П</div>
+    <div>Поддержка тем и мобильных устройств • GitHub Pages готово</div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
