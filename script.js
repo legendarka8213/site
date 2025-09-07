@@ -211,6 +211,7 @@ function applyTheme(theme) {
 function init() {
   const weekBtn = document.getElementById("weekButton");
   const themeBtn = document.getElementById("themeToggle");
+  const nowWeekEl = document.getElementById("nowWeek");
 
   // Init week
   const storedWeek = storage.get("week", null);
@@ -230,7 +231,11 @@ function init() {
   const setWeekButtonText = () => {
     weekBtn.textContent = `Неделя ${currentWeek}`;
   };
+  const setWeekLabel = () => {
+    if (nowWeekEl) nowWeekEl.textContent = `Неделя ${currentWeek}`;
+  };
   setWeekButtonText();
+  setWeekLabel();
   renderWeek(Number(currentWeek));
   tickClock();
   updateNowStatus(Number(currentWeek));
@@ -240,6 +245,7 @@ function init() {
     currentWeek = currentWeek === 1 ? 2 : 1;
     storage.set("week", currentWeek);
     setWeekButtonText();
+    setWeekLabel();
     renderWeek(currentWeek);
     updateNowStatus(currentWeek);
   });
