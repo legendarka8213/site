@@ -175,7 +175,7 @@ select {
 .day__list { padding: 10px 12px; display: grid; gap: 8px; }
 
 .lesson {
-  border: 1px solid var(--primary-soft);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px;
   display: grid;
@@ -188,10 +188,10 @@ select {
 .lesson--alt {
   border-width: 1px;
   border-style: dashed;
-  border-color: var(--accent-soft);
+  border-color: var(--border);
 }
 
-.lesson:hover { border-color: var(--primary); }
+/* Оставляем серый цвет без изменения при наведении */
 
 .empty { color: var(--muted); font-style: italic; }
 
