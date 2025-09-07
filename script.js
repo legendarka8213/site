@@ -162,6 +162,10 @@ function renderWeek(weekNum) {
 
     dayBox.appendChild(head);
     dayBox.appendChild(list);
+    // mark attributes for mobile collapsible behavior
+    if (day === todayIdx) {
+      dayBox.setAttribute('data-today', 'true');
+    }
     wrap.appendChild(dayBox);
   }
 }
@@ -212,6 +216,7 @@ function init() {
   const weekBtn = document.getElementById("weekButton");
   const themeBtn = document.getElementById("themeToggle");
   const nowWeekEl = document.getElementById("nowWeek");
+  const todayBtn = document.getElementById("todayButton");
 
   // Init week
   const storedWeek = storage.get("week", null);
@@ -240,6 +245,36 @@ function init() {
   tickClock();
   updateNowStatus(Number(currentWeek));
 
+  // ---- Mobile collapsible days ----
+  const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 680px)').matches;
+  function applyCollapsible() {
+    const wrap = document.getElementById('week');
+    const days = Array.from(wrap.querySelectorAll('.day'));
+    if (!isMobile()) {
+      days.forEach(d => d.removeAttribute('data-collapsed'));
+      return;
+    }
+    // collapse all except today by default
+    days.forEach(d => {
+      const isToday = d.getAttribute('data-today') === 'true';
+      d.setAttribute('data-collapsed', isToday ? 'false' : 'true');
+    });
+    // attach toggles
+    days.forEach(d => {
+      const header = d.querySelector('.day__header');
+      header.onclick = () => {
+        const collapsed = d.getAttribute('data-collapsed') === 'true';
+        // If mobile, close others when opening this one
+        if (isMobile() && collapsed) {
+          days.forEach(x => x.setAttribute('data-collapsed', x === d ? 'false' : 'true'));
+        } else {
+          d.setAttribute('data-collapsed', collapsed ? 'false' : 'true');
+        }
+      };
+    });
+  }
+  applyCollapsible();
+
   // Events
   weekBtn.addEventListener("click", () => {
     currentWeek = currentWeek === 1 ? 2 : 1;
@@ -248,6 +283,7 @@ function init() {
     setWeekLabel();
     renderWeek(currentWeek);
     updateNowStatus(currentWeek);
+    applyCollapsible();
   });
 
   themeBtn.addEventListener("click", () => {
