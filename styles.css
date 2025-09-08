@@ -56,13 +56,41 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .brand__title {
   font-weight: 700;
   letter-spacing: 0.2px;
 }
+
 .brand__subtitle {
   color: var(--muted);
   font-size: 0.875rem;
+}
+
+.brand__logo {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.brand__group {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.9rem;
 }
 
 .controls {
@@ -95,6 +123,12 @@ select {
   padding: 8px 12px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.btn:disabled, .btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(10%);
 }
 
 /* Now section */
@@ -220,6 +254,7 @@ select {
   .app-footer { flex-direction: column; gap: 6px; }
   .controls { gap: 8px; }
   .controls .btn { flex: 1 1 auto; }
+  .brand__logo { width: 32px; height: 32px; }
 }
 
 /* Collapsible days on mobile */

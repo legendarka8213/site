@@ -79,9 +79,9 @@ function getIsoWeekNumber(date = new Date()) {
 }
 
 function guessWeekParity() {
-  // Week 1: odd ISO week, Week 2: even ISO week
+  // Mapping aligned with school system: odd ISO week -> Week 2 (знаменатель), even ISO week -> Week 1 (числитель)
   const iso = getIsoWeekNumber();
-  return iso % 2 ? 1 : 2;
+  return iso % 2 ? 2 : 1;
 }
 
 function isNowBetween(startStr, endStr) {
@@ -219,8 +219,14 @@ function init() {
   const todayBtn = document.getElementById("todayButton");
 
   // Init week
-  const storedWeek = storage.get("week", null);
-  let currentWeek = storedWeek || guessWeekParity();
+  // Always reflect current (ISO) week parity: 1 — odd ISO week, 2 — even ISO week
+  let currentWeek = guessWeekParity();
+  // Disable switching weeks in UI
+  if (weekBtn) {
+    weekBtn.disabled = true;
+    weekBtn.setAttribute('aria-disabled', 'true');
+    weekBtn.title = 'Неделю переключать нельзя — всегда показывается текущая';
+  }
 
   // Init theme: follow stored or system preference
   const storedTheme = storage.get("theme", null);
@@ -276,15 +282,7 @@ function init() {
   applyCollapsible();
 
   // Events
-  weekBtn.addEventListener("click", () => {
-    currentWeek = currentWeek === 1 ? 2 : 1;
-    storage.set("week", currentWeek);
-    setWeekButtonText();
-    setWeekLabel();
-    renderWeek(currentWeek);
-    updateNowStatus(currentWeek);
-    applyCollapsible();
-  });
+  // Remove week toggle handler — week is fixed to current parity
 
   themeBtn.addEventListener("click", () => {
     const isLight = document.documentElement.getAttribute("data-theme") === "light";
@@ -297,6 +295,15 @@ function init() {
   // Live updates
   setInterval(() => {
     tickClock();
+    // If week parity has changed (e.g., after полуночь), update UI accordingly
+    const newWeek = guessWeekParity();
+    if (newWeek !== currentWeek) {
+      currentWeek = newWeek;
+      setWeekButtonText();
+      setWeekLabel();
+      renderWeek(Number(currentWeek));
+      applyCollapsible();
+    }
     updateNowStatus(Number(currentWeek));
   }, 1000 * 30); // обновляем каждые 30 сек
 }
